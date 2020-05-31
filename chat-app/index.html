@@ -18,7 +18,7 @@
       <h1 class="text-center">My Basic Chat App</h1>
     </header>
     <main class="row justify-content-center">
-      <section class="col-6 text-center jumbotron">
+      <section class="col-6 text-center jumbotron mx-1">
         <h1 class="display-4">Send a Message!</h1>
         <p class="lead">
           This simple app is a demonstration of my practice with Node.js and some simple implementation of
@@ -29,12 +29,15 @@
           Please type a message to be posted
         </p>
         <form class="form" action="">
-          <input class="form-control mb-3" type="text">
-          <button class="btn btn-primary">Send</button>
+          <input id="message-input" class="form-control mb-3" type="text">
+          <button id="send" class="btn btn-primary">Send</button>
         </form>
       </section>
-      <section class="col-7">
-
+      <section class="col-6 text-center jumbotron">
+        <div id="messages" class="col-12 bg-light">
+            <h3>Messages:</h3>
+            <hr class="my-4">
+        </div>
       </section>
     </main>
     <script src="./assets/js/main.js"></script>
