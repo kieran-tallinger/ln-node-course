@@ -1,11 +1,12 @@
 $(() => startApp());
 
-const messageBoard = $('#messages')
+const messageBoard = $('#messages');
+const socket = io();
 
 function startApp() {
   $('body').on('click', '#form', handleSubmit);
   getMessages();
-}
+};
 
 function getMessages() {
   $.ajax({
@@ -14,11 +15,11 @@ function getMessages() {
     success: handleGetMessages,
     error: handleError
   })
-}
+};
 
 function handleGetMessages(data) {
   data.forEach(placeMessage);
-}
+};
 
 function getNewMessage() {
   $.ajax({
@@ -27,11 +28,11 @@ function getNewMessage() {
     success: handleNewMessage,
     error: handleError
   })
-}
+};
 
 function handleNewMessage(data) {
   placeMessage(data[data.length - 1]);
-}
+};
 
 
 function postMessage(name, text) {
@@ -45,11 +46,11 @@ function postMessage(name, text) {
     success: handlePostMessage,
     error: handleError
   })
-}
+};
 
 function handlePostMessage(data) {
   getNewMessage();
-}
+};
 
 function placeMessage(message) {
   if (!event) {
@@ -58,7 +59,7 @@ function placeMessage(message) {
     event.preventDefault();
     messageBoard.append(`<div class="mb-3"><h4> ${message.name} </h4> <p> ${message.text} </p></div>`);
   }
-}
+};
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -69,8 +70,8 @@ function handleSubmit(event) {
     postMessage(newName, newText);
     event.currentTarget.reset();
   }
-}
+};
 
 function handleError(err) {
   console.error(err);
-}
+};

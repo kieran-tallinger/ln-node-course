@@ -23,6 +23,10 @@ app.post('/api/messages', (req, res, next) => {
   res.sendStatus(200);
 })
 
-const server = app.listen(3000, () => {
+io.on('connection', (socket) => {
+  console.log("A new User connected on", socket.id)
+})
+
+const server = http.listen(3000, () => {
   console.log('server is listening in on port', server.address().port)
 });
