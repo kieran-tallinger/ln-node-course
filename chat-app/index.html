@@ -25,11 +25,19 @@
         </p>
         <hr class="my-4">
         <p>
-          Please type a message to be posted
+          Please type your name and a message to be posted
         </p>
-        <form class="form" action="">
-          <input id="message-input" class="form-control mb-3" type="text">
-          <button id="send" class="btn btn-primary">Send</button>
+        <form id="form" class="form" action="">
+          <input id="name"
+                 class="form-control mb-3"
+                 name="name"
+                 type="text"
+                 placeholder="Name">
+          <textarea id="text"
+                    class="form-control mb-3"
+                    name="text"
+                    placeholder="Your message here"></textarea>
+          <button id="send" class="btn btn-primary" type="submit">Send</button>
         </form>
       </section>
       <section class="col-6 text-center jumbotron">
