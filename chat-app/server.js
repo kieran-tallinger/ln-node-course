@@ -1,9 +1,10 @@
 const express = require('express');
+const bp = require('body-parser')
 const app = express();
 
 app.use(express.static(__dirname));
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(bp.urlencoded({ extended: true }));
 
 const messages = [
   { name: "Van", text: "First" },
