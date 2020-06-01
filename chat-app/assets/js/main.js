@@ -3,6 +3,8 @@ $(() => startApp());
 const messageBoard = $('#messages');
 const socket = io();
 
+socket.on('message', placeMessage)
+
 function startApp() {
   $('body').on('click', '#form', handleSubmit);
   getMessages();
@@ -21,20 +23,6 @@ function handleGetMessages(data) {
   data.forEach(placeMessage);
 };
 
-function getNewMessage() {
-  $.ajax({
-    url: 'http://localhost:3000/api/messages',
-    method: "GET",
-    success: handleNewMessage,
-    error: handleError
-  })
-};
-
-function handleNewMessage(data) {
-  placeMessage(data[data.length - 1]);
-};
-
-
 function postMessage(name, text) {
   $.ajax({
     url: 'http://localhost:3000/api/messages',
@@ -49,7 +37,7 @@ function postMessage(name, text) {
 };
 
 function handlePostMessage(data) {
-  getNewMessage();
+  return data;
 };
 
 function placeMessage(message) {

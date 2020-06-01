@@ -18,8 +18,8 @@ app.get('/api/messages', (req, res, next) => {
 })
 
 app.post('/api/messages', (req, res, next) => {
-  console.log(req.body)
   messages.push(req.body)
+  io.emit('message', req.body)
   res.sendStatus(200);
 })
 
