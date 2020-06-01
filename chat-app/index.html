@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic Chat App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </head>
+  <body class="container">
+    <header class="row justify-content-center bg-primary text-white mb-4">
+      <h1 class="text-center">My Basic Chat App</h1>
+    </header>
+    <main class="row justify-content-center">
+      <section class="col-6 text-center jumbotron mx-1">
+        <h1 class="display-4">Send a Message!</h1>
+        <p class="lead">
+          This simple app is a demonstration of my practice with Node.js and some simple implementation of
+          various frameworks such as Express and Socket.io!
+        </p>
+        <hr class="my-4">
+        <p>
+          Please type your name and a message to be posted
+        </p>
+        <form id="form" class="form" action="">
+          <input id="name"
+                 class="form-control mb-3"
+                 name="name"
+                 type="text"
+                 placeholder="Name">
+          <textarea id="text"
+                    class="form-control mb-3"
+                    name="text"
+                    placeholder="Your message here"></textarea>
+          <button id="send" class="btn btn-primary" type="submit">Send</button>
+        </form>
+      </section>
+      <section class="col-6 text-center jumbotron">
+        <div id="messages" class="col-12 bg-light">
+            <h3>Messages:</h3>
+            <hr class="my-4">
+        </div>
+      </section>
+    </main>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+const express = require('express');
+const app = express();
+
+app.use(express.static(__dirname));
+app.use(express.json());
+app.use(express.urlencoded());
+
+const messages = [
+  { name: "Van", text: "First" },
+  { name: "Caroline", text: "Second" }
+]
+
+app.get('/api/messages', (req, res, next) => {
+  res.send(messages);
+})
+
+app.post('/api/messages', (req, res, next) => {
+  console.log(req.body)
+  messages.push(req.body)
+  res.sendStatus(200);
+})
+
+const server = app.listen(3000, () => {
+  console.log('server is listening in on port', server.address().port)
+});
