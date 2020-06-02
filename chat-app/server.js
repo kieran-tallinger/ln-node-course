@@ -9,19 +9,28 @@ app.use(express.static(__dirname));
 app.use(express.json());
 app.use(bp.urlencoded({ extended: true }));
 
-const messages = [
-  { name: "Van", text: "First" },
-  { name: "Caroline", text: "Second" }
-]
+const Message = mongoose.model('message', {
+  name: String,
+  text: String
+});
 
 app.get('/api/messages', (req, res, next) => {
-  res.send(messages);
+  Message.find({}, (err, messages) => {
+    res.send(messages);
+  })
 })
 
 app.post('/api/messages', (req, res, next) => {
-  messages.push(req.body)
-  io.emit('message', req.body)
-  res.sendStatus(200);
+  const message = new Message(req.body)
+  message.save((err) => {
+    if (err) {
+      sendStatus(500);
+    } else {
+      io.emit('message', req.body)
+      res.sendStatus(200);
+    }
+  })
+
 })
 
 io.on('connection', (socket) => {
