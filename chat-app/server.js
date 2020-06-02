@@ -2,7 +2,8 @@ const express = require('express');
 const bp = require('body-parser')
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http)
+const io = require('socket.io')(http);
+const mongoose = require('mongoose');
 
 app.use(express.static(__dirname));
 app.use(express.json());
@@ -25,6 +26,17 @@ app.post('/api/messages', (req, res, next) => {
 
 io.on('connection', (socket) => {
   console.log("A new User connected on", socket.id)
+})
+
+const dbURL = "mongodb+srv://grawp3:SYuOEYVESrZFeBAh@mango-farm-xcpwy.gcp.mongodb.net/test?retryWrites=true&w=majority";
+
+mongoose.connect(dbURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('Successful connection to MongoDB')
 })
 
 const server = http.listen(3000, () => {
