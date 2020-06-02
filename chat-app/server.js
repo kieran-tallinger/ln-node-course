@@ -22,15 +22,23 @@ app.get('/api/messages', (req, res, next) => {
 
 app.post('/api/messages', (req, res, next) => {
   const message = new Message(req.body)
-  message.save((err) => {
-    if (err) {
-      sendStatus(500);
-    } else {
-      io.emit('message', req.body)
-      res.sendStatus(200);
-    }
+  message.save()
+  .then(() => {
+    console.log('Message Saved');
+    return Message.findOne({text: 'badword'});
   })
-
+  .then( (censored) => {
+    if (censored) {
+      console.log('Censored word found:', censored);
+      return Message.deleteOne({_id: censored.id});
+    }
+    io.emit('message', req.body);
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    res.sendStatus(500);
+    return console.error(err);
+  })
 })
 
 io.on('connection', (socket) => {
