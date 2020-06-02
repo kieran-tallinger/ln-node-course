@@ -20,25 +20,28 @@ app.get('/api/messages', (req, res, next) => {
   })
 })
 
-app.post('/api/messages', (req, res, next) => {
-  const message = new Message(req.body)
-  message.save()
-  .then(() => {
-    console.log('Message Saved');
-    return Message.findOne({text: 'badword'});
-  })
-  .then( (censored) => {
+app.post('/api/messages', async (req, res, next) => {
+  try {
+    const message = new Message(req.body)
+    const savedMessage = await message.save();
+
+
+
+    const censored = await Message.findOne({text: 'badword'});
+
     if (censored) {
-      console.log('Censored word found:', censored);
-      return Message.deleteOne({_id: censored.id});
+      console.log("Censored word found. Message not saved.")
+      await Message.deleteOne({_id: censored.id});
+    } else {
+      console.log('Message Saved');
+      io.emit('message', req.body);
     }
-    io.emit('message', req.body);
+
     res.sendStatus(200);
-  })
-  .catch((err) => {
+  } catch (error) {
     res.sendStatus(500);
-    return console.error(err);
-  })
+    return console.error(error);
+  }
 })
 
 io.on('connection', (socket) => {
